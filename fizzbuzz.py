@@ -19,26 +19,34 @@ def robot(position):
     return say
 
 
+def assert_equal(actual, expected):
+    from sys import _getframe
+    msg = 'Line {} failed! got "{}" expecting "{}"'
+
+    if not actual == expected:
+        current = _getframe()
+        caller = current.f_back
+        line_no = caller.f_lineno
+        print(msg.format(line_no, actual, expected))
+
+
 if __name__ == '__main__':
     # numbers not multiple of 3 or 5
-    assert robot(1) == '1'
-    assert robot(2) == '2'
-    assert robot(4) == '4'
+    assert_equal(robot(1), '1')
+    assert_equal(robot(2), '2')
+    assert_equal(robot(4), '4')
 
     # multiples of 3, which turn to 'Fizz'
-    assert robot(3) == 'Fizz'
-    assert robot(6) == 'Fizz'
-    assert robot(9) == 'Fizz'
+    assert_equal(robot(3), 'Fizz')
+    assert_equal(robot(6), 'Fizz')
+    assert_equal(robot(9), 'Fizz')
 
     # multiples of 5, which turn to 'Buzz'
-    assert robot(5) == 'Buzz'
-    assert robot(10) == 'Buzz'
-    assert robot(20) == 'Buzz'
+    assert_equal(robot(5), 'Buzz')
+    assert_equal(robot(10), 'Buzz')
+    assert_equal(robot(20), 'Buzz')
 
     # multiples of 3 and 5, which turn to 'FizzBuzz'
-    assert robot(15) == 'FizzBuzz'
-    assert robot(30) == 'FizzBuzz'
-    assert robot(45) == 'FizzBuzz'
-
-    print('All tests passed!')
-    print()
+    assert_equal(robot(15), 'FizzBuzz')
+    assert_equal(robot(30), 'FizzBuzz')
+    assert_equal(robot(45), 'FizzBuzz')
